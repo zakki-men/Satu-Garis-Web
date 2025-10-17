@@ -1,8 +1,12 @@
 /* style.css */
 
+/* Import Google Font - Poppins untuk font yang bagus */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
 /* --- 1. Gaya Dasar (Reset) --- */
 body {
-  font-family: sans-serif;
+  /* MENGGANTI font-family: sans-serif; menjadi font Poppins */
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   /* Background */
@@ -25,6 +29,35 @@ body {
   font-weight: bold;
   color: #333;
   margin: 0;
+}
+
+/* --- 2.5. GAYA BARU UNTUK BOX TEKS (Filosofi "Satu Garis") --- */
+
+.text-box {
+  /* Menengahkan box di tengah halaman, memberi jarak dari dinding kiri/kanan halaman */
+  max-width: 800px;
+  margin: 20px auto 40px auto; /* Margin bawah 40px untuk jarak ke gambar pertama */
+
+  /* Box dan Shadow */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Shadow lebih menonjol */
+
+  /* Padding (Jarak teks dari dinding box) */
+  padding: 30px;
+  width: 90%; /* Menggunakan persentase untuk responsif dasar */
+}
+
+/* Gaya untuk Paragraf di dalam box */
+.text-box p {
+  font-size: 1.05em;
+  /* PENTING: Rata kiri dan kanan (Justified) */
+  text-align: justify;
+  /* Mengatur jarak antar baris */
+  line-height: 1.7;
+  margin: 0; /* Menghilangkan margin bawaan paragraf */
+  color: #555; /* Warna teks lebih lembut */
+  font-weight: 400;
 }
 
 /* --- 3. Kontainer Utama (Tata Letak Horizontal) --- */
@@ -71,7 +104,7 @@ body {
 /* Gambar Aplikasi: Ditambahkan 'max-width: 100%' untuk responsif dasar */
 .image-box img {
   /* ATURAN WAJIB RESPONSIVE */
-  max-width: 100%; /* Memastikan gambar tidak melebihi lebar kotaknya */
+  max-width: 100%;
   height: auto;
   /* Akhir Aturan Wajib */
 
@@ -96,7 +129,7 @@ body {
 /* Keterangan Foto (Caption) */
 .caption {
   font-size: 1em;
-  font-weight: bold;
+  font-weight: 600; /* Disesuaikan dengan font Poppins */
   color: #333;
   padding: 10px 0 0;
   margin: 0;
@@ -206,6 +239,18 @@ main {
   }
 }
 
+/* DEFINISI ANIMASI FADE-IN BARU */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Mulai sedikit di bawah posisi akhir */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* --- 8. STYLING ANIMASI SCROLL --- */
 
 /* Kondisi Akhir: DITAMBAHKAN OLEH JS */
@@ -219,8 +264,6 @@ main {
 /* ========================================= */
 
 @media screen and (max-width: 850px) {
-  /* 850px adalah titik batas yang baik agar 3 kolom Anda tidak saling menumpuk terlalu cepat */
-
   /* 1. Atur Kontainer Utama (Merubah Flex-direction menjadi kolom, menumpuk item) */
   .content-container {
     /* Mengubah arah layout: dari baris (horizontal) menjadi kolom (vertikal) */
@@ -230,6 +273,12 @@ main {
     /* Memastikan konten di tengah */
     align-items: center;
     justify-content: center;
+  }
+
+  /* *RESPONSIVE UNTUK BOX TEKS* */
+  .text-box {
+    width: 85%; /* Sedikit lebih kecil di HP */
+    padding: 20px; /* Padding sedikit berkurang */
   }
 
   /* 2. Atur Pembungkus Item agar mengisi penuh lebar yang diizinkan */
@@ -244,12 +293,11 @@ main {
   .image-box {
     /* Mengganti lebar tetap (250px) menjadi fleksibel */
     width: 100%;
-    max-width: 350px; /* Batasi lebar maksimum agar gambar tidak terlalu besar di tablet/HP lebar */
-    padding: 15px; /* Tambah padding agar gambar tidak terlalu mepet ke tepi kotak */
+    max-width: 350px;
+    padding: 15px;
   }
 
   /* 4. Sembunyikan Garis Penghubung */
-  /* Garis horizontal tidak relevan dan sulit dipertahankan dalam tata letak vertikal */
   .connecting-line {
     display: none;
   }
@@ -264,9 +312,80 @@ main {
 
   /* 6. Atur Modal (Zoom Foto) untuk Tampilan HP */
   .modal-content {
-    /* Perluas max-width agar foto zoom terlihat lebih besar di HP */
     max-width: 90%;
     width: auto;
-    max-height: 85vh; /* Menyisakan ruang untuk tombol tutup */
+    max-height: 85vh;
   }
+
+  /* *RESPONSIVE UNTUK BOX TIM TUNGGAL* */
+  .team-box-single {
+    padding: 20px;
+  }
+}
+
+/* ======================================================== */
+/* --- 10. GAYA UNTUK BAGIAN TIM BARU (SATU FOTO + DAFTAR NAMA) --- */
+/* ======================================================== */
+
+.team-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.team-box-single {
+  max-width: 600px; /* Lebar box disesuaikan untuk satu foto besar */
+  width: 90%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  text-align: center;
+
+  /* Animasi masuk (Fade-In) */
+  /* Menggunakan definisi @keyframes fadeIn dari atas */
+  /* Pastikan Anda menambahkan ini jika belum ada di HTML/JS: animation: fadeIn 1s ease-out 1.5s forwards; opacity: 0; */
+}
+
+.team-box-single h2 {
+  font-size: 2em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.team-content-wrapper {
+  display: flex;
+  flex-direction: column; /* Tata letak vertikal (foto di atas, daftar di bawah) */
+  align-items: center; /* Tengahkan item secara horizontal */
+  gap: 20px; /* Jarak antara foto dan daftar nama */
+}
+
+.team-group-photo {
+  max-width: 100%; /* Pastikan foto responsif */
+  height: auto;
+  border-radius: 10px; /* Sudut melengkung untuk foto tim */
+  border: 3px solid #007bff; /* Border dengan warna aksen */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-members-list {
+  text-align: center; /* PERBAIKAN: Mengubah dari 'left' ke 'center' */
+  width: 100%; /* Ambil lebar penuh di dalam wrapper */
+  padding: 0 10px; /* Sedikit padding samping */
+}
+
+.team-members-list p {
+  font-size: 1em;
+  color: #444;
+  margin: 8px 0; /* Jarak antar setiap anggota */
+  line-height: 1.4;
+}
+
+.team-members-list strong {
+  font-weight: 600; /* Nama anggota sedikit lebih tebal */
+  color: #333;
 }
